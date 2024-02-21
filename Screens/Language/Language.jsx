@@ -25,7 +25,7 @@ const Language = () => {
   );
   return (
     <ImageBackground
-      source={"../../assets/images/Vector.png"}
+      source={require("../../assets/images/Vector.png")}
       style={styles.container}
       resizeMode="cover"
     >
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D4A75B",
     padding: 20,
     borderRadius: 5,
-    marginTop: 20,
+    marginTop: 40,
   },
   buttonText: {
     color: "#fff",

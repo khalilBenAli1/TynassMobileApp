@@ -21,7 +21,6 @@ const CodeRoom = () => {
     };
     return (
       <ImageBackground
-        source={require("../../assets/images/Vector.png")}
         style={styles.container}
         resizeMode="cover"
       >
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D4A75B",
     padding: 20,
     borderRadius: 5,
-    marginTop: 20,
+    marginTop: 40,
   },
   buttonText: {
     color: "#fff",

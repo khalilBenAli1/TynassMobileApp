@@ -1,11 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet} from 'react-native';
 import CodeRoom from './Screens/CodeRoom/CodeRoom.jsx';
+import Language from './Screens/Language/Language.jsx';
+import Loading from './Screens/Loading/Loading.jsx';
 
 
 export default function App() {
   return (
-     <CodeRoom/>
+    <Loading
+    backgroundColor="#161615"
+    logoImage={require('./assets/images/WhiteLogoVersion.png')}
+    backgroundImage={require('./assets/images/Vector.png')}
+  />
   );
 }
 
