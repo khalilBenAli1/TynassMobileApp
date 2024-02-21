@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet} from 'react-native';
-import Language from './Screens/Language/Index.jsx';
+import CodeRoom from './Screens/CodeRoom/CodeRoom.jsx';
+
 
 export default function App() {
   return (
-    
-      <Language/>
- 
+     <CodeRoom/>
   );
 }
 
