@@ -5,6 +5,7 @@ import Language from './Screens/Language/Language.jsx';
 import Loading from './Screens/Loading/Loading.jsx';
 import Login from './Screens/Login/Login.jsx';
 import Lobby from './Screens/Lobby/Lobby.jsx';
+import Memories from './Screens/Memories/Memories.jsx';
 
 
 export default function App() {
@@ -17,7 +18,8 @@ export default function App() {
   // />
   // <CodeRoom/>
   // <Language/>
-  <Lobby/>
+  // <Lobby/>
+  <Memories/>
   );
 }
 
