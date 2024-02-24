@@ -4,7 +4,7 @@ import CodeRoom from './Screens/CodeRoom/CodeRoom.jsx';
 import Language from './Screens/Language/Language.jsx';
 import Loading from './Screens/Loading/Loading.jsx';
 import Login from './Screens/Login/Login.jsx';
-import Lobby from './Screens/Lobby/Lobby.jsx';
+import Lobby from './Screens/TeamSelect/TeamSelect.jsx';
 import Memories from './Screens/Memories/Memories.jsx';
 
 

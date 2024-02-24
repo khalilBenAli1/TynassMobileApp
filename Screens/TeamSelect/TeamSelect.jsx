@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground ,TouchableOpacity} from 'react-native';
 
-const Lobby = () => {
+const TeamSelect = () => {
   return (
     <ImageBackground
     source={require("../../assets/images/Vector.png")}
@@ -91,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Lobby
+export default TeamSelect
