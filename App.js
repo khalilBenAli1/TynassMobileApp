@@ -4,16 +4,20 @@ import CodeRoom from './Screens/CodeRoom/CodeRoom.jsx';
 import Language from './Screens/Language/Language.jsx';
 import Loading from './Screens/Loading/Loading.jsx';
 import Login from './Screens/Login/Login.jsx';
+import Lobby from './Screens/Lobby/Lobby.jsx';
 
 
 export default function App() {
   return (
-    <Login/>
+    // <Login/>
   //   <Loading
   //   backgroundColor="#161615"
   //   logoImage={require('./assets/images/WhiteLogoVersion.png')}
   //   backgroundImage={require('./assets/images/Vector.png')}
   // />
+  // <CodeRoom/>
+  // <Language/>
+  <Lobby/>
   );
 }
 
