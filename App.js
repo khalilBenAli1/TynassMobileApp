@@ -4,10 +4,16 @@ import CodeRoom from './Screens/CodeRoom/CodeRoom.jsx';
 import Language from './Screens/Language/Language.jsx';
 import Loading from './Screens/Loading/Loading.jsx';
 import Login from './Screens/Login/Login.jsx';
-import Lobby from './Screens/TeamSelect/TeamSelect.jsx';
+import Lobby from './Screens/Lobby/Lobby.jsx';
 import Memories from './Screens/Memories/Memories.jsx';
+import TeamSelect from './Screens/TeamSelect/TeamSelect.jsx';
 
 
+const lobbyData = [
+  { number: 1, avatar: 'http://example.com/avatar1.png', name: 'Player One' },
+  { number: 2, avatar: 'http://example.com/avatar2.png', name: 'Player Two' },
+
+];
 export default function App() {
   return (
     // <Login/>
@@ -18,8 +24,9 @@ export default function App() {
   // />
   // <CodeRoom/>
   // <Language/>
-  // <Lobby/>
-  <Memories/>
+  // <TeamSelect/>
+  <Lobby listData={lobbyData} />
+  // <Memories/>
   );
 }
 
