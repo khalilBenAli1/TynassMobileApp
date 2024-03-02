@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'mobx-react';
 import { setupRootStore } from './PersistStore';
-
+import { StoreContext } from './storeContext';
 export const StoreProvider = ({ children }) => {
   const [store, setStore] = useState(null);
   
@@ -10,7 +10,7 @@ export const StoreProvider = ({ children }) => {
       setStore(initializedStore);
     }).catch(error => console.error("Failed to setup root store:", error));
   }, []);
-  
+
   if (!store) {
     console.log("Store is not ready yet.");
     return null;
@@ -18,5 +18,5 @@ export const StoreProvider = ({ children }) => {
 
   console.log("Store is ready:", store);
 
-  return <Provider store={store}>{children}</Provider>;
+  return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;;
 };

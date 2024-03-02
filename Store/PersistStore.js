@@ -1,4 +1,4 @@
-// PersistStore.js or a similar file
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onSnapshot } from 'mobx-state-tree';
 import  RootStore  from './Models/rootStore';
