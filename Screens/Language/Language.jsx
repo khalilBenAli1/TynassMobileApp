@@ -8,9 +8,14 @@ import {
   ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useStore } from "../../Store/useStore";
+import { useNavigation } from '@react-navigation/native';
 
 const Language = () => {
+
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const store=useStore()
+  const navigation = useNavigation();
   const LanguageItem = ({ language, flagSource }) => (
     <TouchableOpacity
       style={styles.iconTextContainer}
@@ -55,7 +60,7 @@ const Language = () => {
         flagSource={require("../../assets/images/english_flag.png")}
       />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={()=>{store.setLanguage(selectedLanguage);navigation.navigate('CodeRoom');}}>
         <Text style={styles.buttonText}>Let's Start</Text>
       </TouchableOpacity>
     </ImageBackground>
