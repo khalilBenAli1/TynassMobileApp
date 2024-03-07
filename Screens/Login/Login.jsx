@@ -8,9 +8,12 @@ import {
   ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useFacebookLogin } from "../../utils/facebookLogin";
+import { useGoogleLogin } from "../../utils/googleLogin";
 
 const Login = () => {
-   
+  const { promptFacebookLogin, request } = useFacebookLogin();
+  const { promptAsync } = useGoogleLogin();
     const openPrivacyPolicy = () => {
       Linking.openURL('http://www.yourprivacypolicyurl.com');
     };
@@ -26,11 +29,11 @@ const Login = () => {
           source={require('../../assets/images/ezgif3.png')}
           style={styles.mainImage}
         />
-        <TouchableOpacity style={styles.connectButton}>
+        <TouchableOpacity style={styles.connectButton} disabled={!request} onPress={()=>promptFacebookLogin()}>
           <Icon name="facebook" size={24} color="#FFF" />
           <Text style={styles.connectButtonText}>Connect with Facebook</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.connectButton}>
+        <TouchableOpacity style={styles.connectButton} onPress={() => promptAsync()}>
           <Icon name="google" size={24} color="#FFF" />
           <Text style={styles.connectButtonText}>Connect with Google</Text>
         </TouchableOpacity>

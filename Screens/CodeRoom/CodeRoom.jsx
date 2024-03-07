@@ -1,11 +1,12 @@
 import React, { useState ,useRef} from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const CodeRoom = () => {
     const [code, setCode] = useState(["", "", "", "", ""]); 
 
     const inputRefs = useRef(code.map(() => React.createRef()));
-
+    const navigation = useNavigation();
     const handleCodeInput = (text, index) => {
       const newCode = [...code];
       newCode[index] = text;
@@ -35,7 +36,7 @@ const CodeRoom = () => {
         {code.map((digit, index) => (
           <TextInput
             key={index}
-            ref={inputRefs.current[index]} // Attach the ref
+            ref={inputRefs.current[index]} 
             style={styles.codeInput}
             maxLength={1}
             keyboardType="numeric"
@@ -45,7 +46,7 @@ const CodeRoom = () => {
         ))}
       </View>
   
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Connect');}}>
           <Text style={styles.buttonText}>Let's Start</Text>
         </TouchableOpacity>
       </ImageBackground>
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: 40,
     height: 40,
-    borderRadius:"10%", 
+    borderRadius:10, 
     textAlign: "center",
     fontSize: 18,
     marginHorizontal: 5,

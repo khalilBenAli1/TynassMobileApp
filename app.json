@@ -1,11 +1,15 @@
 {
   "expo": {
     "name": "TynassMobileApp",
-    "slug": "TynassMobileApp",
+    "slug": "treasurehaunt",
     "version": "1.0.0",
+    "scheme": "TreasureHunt",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "facebookAppId": "425724636786174",
+    "facebookDisplayName": "TreasureHunt",
+    "facebookScheme": "fb425724636786174",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,9 +19,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "jsEngine": "hermes"
     },
     "android": {
+      "jsEngine": "hermes",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

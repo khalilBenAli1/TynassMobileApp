@@ -3,6 +3,7 @@ import { StyleSheet, View, StatusBar } from "react-native";
 import { StoreProvider } from "./Store/StoreProvider.jsx";
 import Lobby from "./Screens/Lobby/Lobby.jsx";
 import AppNavigation from "./navigation/AppNav.jsx";
+import Mission from "./Screens/Missions/Mission.jsx";
 
 const lobbyData = [
   { number: 1, avatar: "http://example.com/avatar1.png", name: "Player One" },
@@ -11,9 +12,10 @@ const lobbyData = [
 
 export default function App() {
   return (
-    <StoreProvider>
-      <AppNavigation/>
-    </StoreProvider>
+    // <StoreProvider>
+    //   <AppNavigation/>
+    // </StoreProvider>
+    <Mission/>
   );
 }
 
