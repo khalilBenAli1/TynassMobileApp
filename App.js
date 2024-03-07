@@ -4,6 +4,7 @@ import { StoreProvider } from "./Store/StoreProvider.jsx";
 import Lobby from "./Screens/Lobby/Lobby.jsx";
 import AppNavigation from "./navigation/AppNav.jsx";
 import Mission from "./Screens/Missions/Mission.jsx";
+import CameraBased from "./Screens/CameraBased/CameraBased.jsx";
 
 const lobbyData = [
   { number: 1, avatar: "http://example.com/avatar1.png", name: "Player One" },
@@ -16,7 +17,8 @@ export default function App() {
     //   <AppNavigation/>
     // </StoreProvider>
     
-    <Mission/>
+    // <Mission/>
+    <CameraBased/>
   );
 }
 
