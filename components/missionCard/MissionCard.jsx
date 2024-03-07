@@ -22,7 +22,8 @@ const MissionCard = ({ image, difficulty, name, onPress }) => {
       ? "account-group"
       : difficulty.toUpperCase() === "MEDIUM"
       ? "account-multiple"
-      : "account";
+      :  difficulty.toUpperCase() === "EASY"?"account":
+      "party-popper";
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <ImageBackground

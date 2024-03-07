@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   StyleSheet,
   View,
@@ -10,6 +10,9 @@ import {
 } from "react-native";
 import MissionCard from "../../components/missionCard/MissionCard";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import CustomModal from "../../components/Modal/Modal";
+import WellDoneModal from "../../Modals/WellDoneModal";
+import NoModal from "../../Modals/NoModal";
 
 const Mission = () => {
   const missions = [
@@ -32,8 +35,14 @@ const Mission = () => {
         difficulty: "medium",
         image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
       },
+      {
+        id: "3",
+        name: "Find the mosque",
+        difficulty: "fun",
+        image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+      },
   ];
-
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <ImageBackground
       source={require("../../assets/images/Vector.png")}
@@ -49,7 +58,7 @@ const Mission = () => {
             style={styles.roundedImage}
           />
           <View style={{ flexDirection: "row",marginRight:19 }}>
-            <TouchableOpacity style={styles.icon}>
+            <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
               <Icon name="information-outline" size={24} color="white" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>
@@ -80,6 +89,7 @@ const Mission = () => {
             />
           ))}
         </View>
+        <NoModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true}/>
       </ScrollView>
     </ImageBackground>
   );
