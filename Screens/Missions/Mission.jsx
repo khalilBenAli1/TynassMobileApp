@@ -14,6 +14,7 @@ import CustomModal from "../../components/Modal/Modal";
 import WellDoneModal from "../../Modals/WellDoneModal";
 import NoModal from "../../Modals/NoModal";
 import HelpModal from "../../Modals/HelpModal";
+import SolutionModal from "../../Modals/SolutionModal";
 
 const Mission = () => {
   const missions = [
@@ -90,7 +91,7 @@ const Mission = () => {
             />
           ))}
         </View>
-        <HelpModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true}/>
+        <SolutionModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true}/>
       </ScrollView>
     </ImageBackground>
   );

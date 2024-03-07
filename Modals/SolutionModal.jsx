@@ -2,18 +2,17 @@ import React from "react";
 import { Text, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import CustomModal from "../components/Modal/Modal";
 
-const HelpModal = ({ isVisible, onClose, cancel }) => {
+const SolutionModal = ({ isVisible, onClose, cancel }) => {
   return (
     <CustomModal isVisible={isVisible} onClose={onClose} cancel>
-      <Text style={styles.subtitle}>You need Help !</Text>
-
       <Image
-        source={require("../assets/Modals/Modal3.png")}
+        source={require("../assets/Modals/Modal4.png")}
         style={styles.image}
       />
 
       <Text style={styles.normalText}>
-        Looks like your struggling we can help you but that will cost you 20 PT
+        Its here but it not you can see it maybe it’s like the air and hiding on
+        the fog ,you will need item 6 in the bag to find the answer
       </Text>
 
       <TouchableOpacity
@@ -22,7 +21,7 @@ const HelpModal = ({ isVisible, onClose, cancel }) => {
           /*  */
         }}
       >
-        <Text style={styles.buttonText}>Pay the price</Text>
+        <Text style={styles.buttonText}>Go to solution</Text>
       </TouchableOpacity>
     </CustomModal>
   );
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 150,
-    height: 150,
+    height: 200,
     marginBottom: 16,
   },
   normalText: {
@@ -69,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HelpModal;
+export default SolutionModal;

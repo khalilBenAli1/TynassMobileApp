@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 16,
     fontWeight:"300",
+    lineHeight:30,
     
   },
   customButton: {

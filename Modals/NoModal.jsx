@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 16,
     fontWeight:"300",
+    lineHeight:30,
     
   },
   customButton: {
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     textAlign: 'center',
+    
   },
   HintButton:{
     borderRadius: 4,
