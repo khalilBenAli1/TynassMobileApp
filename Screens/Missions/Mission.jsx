@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import CustomModal from "../../components/Modal/Modal";
 import WellDoneModal from "../../Modals/WellDoneModal";
 import NoModal from "../../Modals/NoModal";
+import HelpModal from "../../Modals/HelpModal";
 
 const Mission = () => {
   const missions = [
@@ -89,7 +90,7 @@ const Mission = () => {
             />
           ))}
         </View>
-        <NoModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true}/>
+        <HelpModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true}/>
       </ScrollView>
     </ImageBackground>
   );
