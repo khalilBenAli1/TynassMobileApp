@@ -20,11 +20,18 @@ const Mission = () => {
       image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
     },
     {
-      id: "1",
+      id: "2",
       name: "Find the mosque",
       difficulty: "easy",
       image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
     },
+
+    {
+        id: "3",
+        name: "Find the mosque",
+        difficulty: "medium",
+        image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+      },
   ];
 
   return (
@@ -43,10 +50,10 @@ const Mission = () => {
           />
           <View style={{ flexDirection: "row",marginRight:19 }}>
             <TouchableOpacity style={styles.icon}>
-              <Icon name="account-clock" size={24} color="white" />
+              <Icon name="information-outline" size={24} color="white" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>
-              <Icon name="pencil" size={24} color="white" />
+              <Icon name="trophy-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
         </View>
@@ -121,7 +128,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   icon: {
-    marginHorizontal: "15px",
+    marginHorizontal: 5,
   },
   button1: {
     backgroundColor: "#D4A75B",
