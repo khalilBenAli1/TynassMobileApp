@@ -20,16 +20,11 @@ const lobbyData = [
 
 export default function App() {
   return (
-    // <StoreProvider>
-        // <Language/>
-    // {/* </StoreProvider> */}
-//  <Lobby listData={lobbyData}/>>
-/* <TeamSelect/> */
-    // <Mission/>
-    // <CameraBased/>
-    // <CodeBasedAR/>
-    // <Login/>
-    <CodeRoom/>
+  <StoreProvider>
+      <AppNavigation/>
+   </StoreProvider>
+
+   
   );
 }
 

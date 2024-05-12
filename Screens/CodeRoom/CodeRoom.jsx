@@ -11,11 +11,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
+
+
 const CodeRoom = () => {
   const [code, setCode] = useState(["", "", "", "", ""]);
 
   const inputRefs = useRef(code.map(() => React.createRef()));
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const handleCodeInput = (text, index) => {
     const newCode = [...code];
     newCode[index] = text;
@@ -44,7 +46,7 @@ const CodeRoom = () => {
       <TouchableOpacity
         style={styles.scanButton}
         onPress={() => {
-          /* your scan function */
+          navigation.navigate('QRCodeScanner')
         }}
       >
         <Icon name="qrcode-scan" size={24} color="#D4A75B" />
