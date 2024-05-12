@@ -6,6 +6,10 @@ import AppNavigation from "./navigation/AppNav.jsx";
 import Mission from "./Screens/Missions/Mission.jsx";
 import CameraBased from "./Screens/CameraBased/CameraBased.jsx";
 import CodeBasedAR from "./Screens/CodeBasedAR/CodeBasedAR.jsx";
+import Language from "./Screens/Language/Language.jsx";
+import Memories from "./Screens/Memories/Memories.jsx";
+import TeamSelect from "./Screens/TeamSelect/TeamSelect.jsx";
+import Login from "./Screens/Login/Login.jsx";
 
 
 const lobbyData = [
@@ -16,12 +20,14 @@ const lobbyData = [
 export default function App() {
   return (
     // <StoreProvider>
-    //   <AppNavigation/>
-    // </StoreProvider>
-    
+        // <Language/>
+    // {/* </StoreProvider> */}
+//  <Lobby listData={lobbyData}/>>
+/* <TeamSelect/> */
     // <Mission/>
     // <CameraBased/>
-    <CodeBasedAR/>
+    // <CodeBasedAR/>
+    <Login/>
   );
 }
 
