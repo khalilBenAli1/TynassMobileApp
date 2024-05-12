@@ -1,42 +1,60 @@
-import React, { useState ,useRef} from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, TextInput } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useRef } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+  TextInput,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const CodeRoom = () => {
-    const [code, setCode] = useState(["", "", "", "", ""]); 
+  const [code, setCode] = useState(["", "", "", "", ""]);
 
-    const inputRefs = useRef(code.map(() => React.createRef()));
-    const navigation = useNavigation();
-    const handleCodeInput = (text, index) => {
-      const newCode = [...code];
-      newCode[index] = text;
-      setCode(newCode);
+  const inputRefs = useRef(code.map(() => React.createRef()));
+  // const navigation = useNavigation();
+  const handleCodeInput = (text, index) => {
+    const newCode = [...code];
+    newCode[index] = text;
+    setCode(newCode);
 
-      if (text && index < code.length - 1) {
-        inputRefs.current[index + 1].current.focus();
-      }
+    if (text && index < code.length - 1) {
+      inputRefs.current[index + 1].current.focus();
+    }
 
-      if (!text && index > 0) {
-        inputRefs.current[index - 1].current.focus();
-      }
-    };
-    return (
-      <ImageBackground
-        style={styles.container}
-        resizeMode="cover"
+    if (!text && index > 0) {
+      inputRefs.current[index - 1].current.focus();
+    }
+  };
+  return (
+    <ImageBackground
+      style={styles.container}
+      source={require("../../assets/images/Vector.png")}
+      resizeMode="cover"
+    >
+      <Text style={styles.title}>Treasure Hunt Experience</Text>
+      <Image
+        source={require("../../assets/images/bajoreux_pirate_wallpaper_png_for_mobile_application_b36f88c8-d22a-4a34-b634-467a43a5bd11 1.png")}
+        style={styles.image}
+      />
+      <Text style={styles.codeRoomText}>Enter Your Code Room</Text>
+      <TouchableOpacity
+        style={styles.scanButton}
+        onPress={() => {
+          /* your scan function */
+        }}
       >
-        <Text style={styles.title}>Treasure Hunt Experience</Text>
-        <Image
-          source={require("../../assets/images/bajoreux_pirate_wallpaper_png_for_mobile_application_b36f88c8-d22a-4a34-b634-467a43a5bd11 1.png")}
-          style={styles.image}
-        />
-        <Text style={styles.codeRoomText}>Enter Your Code Room</Text>
-        
-        <View style={styles.codeInputContainer}>
+        <Icon name="qrcode-scan" size={24} color="#D4A75B" />
+        <Text style={styles.scanButtonText}>Scan QR Code</Text>
+      </TouchableOpacity>
+      <View style={styles.codeInputContainer}>
         {code.map((digit, index) => (
           <TextInput
             key={index}
-            ref={inputRefs.current[index]} 
+            ref={inputRefs.current[index]}
             style={styles.codeInput}
             maxLength={1}
             keyboardType="numeric"
@@ -45,13 +63,19 @@ const CodeRoom = () => {
           />
         ))}
       </View>
-  
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Connect');}}>
-          <Text style={styles.buttonText}>Let's Start</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    );
-  };
+
+      <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => {
+          navigation.navigate("Connect");
+        }}
+      >
+        <Icon name="qrcode-scan" size={24} color="white" />
+        <Text style={styles.buttonText}>Join the Advanture</Text>
+      </TouchableOpacity>
+    </ImageBackground>
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -100,9 +124,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 40,
   },
+  submitButton:{
+    width:"70%",
+    backgroundColor: "#D4A75B",
+    padding: 20,
+    borderRadius: 5,
+    marginTop: 40,
+    flexDirection:"row",
+    justifyContent:'center',
+    alignItems:"center"
+  },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize:20,
+    marginLeft:10
   },
   flagIcon: {
     width: 20,
@@ -120,28 +156,45 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   checkIcon: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   codeRoomText: {
     fontSize: 24,
     color: "white",
-    fontWeight:"bold",
+    fontWeight: "bold",
     marginVertical: 20,
   },
   codeInputContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    paddingHorizontal: 50, 
+    paddingHorizontal: 50,
   },
   codeInput: {
     backgroundColor: "white",
     width: 40,
     height: 40,
-    borderRadius:10, 
+    borderRadius: 10,
     textAlign: "center",
     fontSize: 18,
     marginHorizontal: 5,
+  },
+  scanButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical:20,
+    
+  },
+  
+  scanButtonText: {
+    marginLeft: 10,
+    color: '#D4A75B',
+    fontSize: 22,
+    fontWeight:"700",
   },
 });
 

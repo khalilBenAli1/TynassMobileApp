@@ -10,6 +10,7 @@ import Language from "./Screens/Language/Language.jsx";
 import Memories from "./Screens/Memories/Memories.jsx";
 import TeamSelect from "./Screens/TeamSelect/TeamSelect.jsx";
 import Login from "./Screens/Login/Login.jsx";
+import CodeRoom from "./Screens/CodeRoom/CodeRoom.jsx";
 
 
 const lobbyData = [
@@ -27,7 +28,8 @@ export default function App() {
     // <Mission/>
     // <CameraBased/>
     // <CodeBasedAR/>
-    <Login/>
+    // <Login/>
+    <CodeRoom/>
   );
 }
 
