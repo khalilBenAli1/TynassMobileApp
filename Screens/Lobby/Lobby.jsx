@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
-
+import { useNavigation } from '@react-navigation/native';
 
 const ListItem = ({ number, avatar, name }) => (
   <View style={styles.listItem}>
@@ -13,7 +13,7 @@ const ListItem = ({ number, avatar, name }) => (
 
 const Lobby = ({ listData }) => {
   const [text, setText] = useState("Initial Text");
-
+  const navigation=useNavigation()
   const toggleText = () => {
     setText(prevText => prevText === "Initial Text" ? "Modified Text" : "Initial Text");
   };
@@ -43,7 +43,7 @@ const Lobby = ({ listData }) => {
         renderItem={({ item }) => <ListItem number={item.number} avatar={item.avatar} name={item.name} />}
         keyExtractor={item => item.number.toString()}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Memories")}>
         <Text style={styles.buttonText}>Set Ready</Text>
       </TouchableOpacity>
     

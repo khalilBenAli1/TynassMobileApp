@@ -40,7 +40,6 @@ const CameraBased = ({ navigation }) => {
             Title
           </Text>
           <Text style={styles.scrollableText}>
-            
             Lorem ipsum dolor sit amet, consectetur adipiscing elit...
           </Text>
         </ScrollView>

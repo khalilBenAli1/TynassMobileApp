@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const MissionCard = ({ image, difficulty, name, onPress }) => {
+const MissionCard = ({ image, difficulty, name, onPress , completed=false }) => {
   const difficultyColor =
     difficulty.toUpperCase() === "HARD"
       ? "red"
@@ -39,8 +39,12 @@ const MissionCard = ({ image, difficulty, name, onPress }) => {
             <Text style={styles.difficulty}>{difficulty.toUpperCase()}</Text>
           </View>
         </View>
+        {completed && (
+          <View style={styles.completedIcon}>
+            <Icon name="check-circle" size={24} color="white" />
+          </View>
+        )}
       </ImageBackground>
-      <View style={[styles.difficultyIndicator,{backgroundColor: difficultyColor}]} />
     </TouchableOpacity>
   );
 };
@@ -49,13 +53,12 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     borderRadius: 10,
     overflow: "hidden",
     marginBottom: 10,
   },
   image: {
-    width: "98%",
+    width: "100%",
     height: 90,
     justifyContent: "flex-end",
   },
@@ -93,6 +96,11 @@ const styles = StyleSheet.create({
   difficultyContainer: {
     flexDirection: "row",
     marginTop: 10,
+  },
+  completedIcon: {
+    position: "absolute",
+    right: 10,
+    top: 10,
   },
 });
 

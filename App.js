@@ -5,7 +5,7 @@ import Lobby from "./Screens/Lobby/Lobby.jsx";
 import AppNavigation from "./navigation/AppNav.jsx";
 import Mission from "./Screens/Missions/Mission.jsx";
 import CameraBased from "./Screens/CameraBased/CameraBased.jsx";
-import CodeBasedAR from "./Screens/CodeBasedAR/CodeBasedAR.jsx";
+import CodeBasedAR from "./Screens/CodeBasedAR/CodeBased.jsx";
 import Language from "./Screens/Language/Language.jsx";
 import Memories from "./Screens/Memories/Memories.jsx";
 import TeamSelect from "./Screens/TeamSelect/TeamSelect.jsx";
@@ -20,9 +20,7 @@ const lobbyData = [
 
 export default function App() {
   return (
-  <StoreProvider>
-      <AppNavigation/>
-   </StoreProvider>
+    <CodeBasedAR scrollText={"This mission will be timed So to make sure that you are on time you need to be on the mission location to start but here the riddle to think about it"} externalLink={"test"}/>
 
    
   );

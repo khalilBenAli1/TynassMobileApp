@@ -23,12 +23,14 @@ const Mission = () => {
       name: "Find the mosque",
       difficulty: "Hard",
       image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+      completed:true,
     },
     {
       id: "2",
       name: "Find the mosque",
       difficulty: "easy",
       image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+      completed:true,
     },
 
     {
@@ -72,7 +74,7 @@ const Mission = () => {
           <Text style={styles.teamName}>Team Winners</Text>
           <Text style={styles.points}>85 P</Text>
         </View>
-        <View style={styles.header2}>
+        <View style={styles.header3}>
           <TouchableOpacity style={styles.button1}>
             <Text style={styles.buttonText}>Missions</Text>
           </TouchableOpacity>
@@ -81,13 +83,14 @@ const Mission = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.missionContainer}>
-          {missions.map((mission) => (
+          {missions.map((mission,index) => (
             <MissionCard
-              key={mission.id}
+              key={index}
               name={mission.name}
               difficulty={mission.difficulty}
               image={mission.image}
               onPress={() => {}}
+              completed={mission.completed}
             />
           ))}
         </View>
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    padding: 5,
     backgroundColor: "#161615",
   },
 
@@ -115,6 +118,14 @@ const styles = StyleSheet.create({
   header2: {
     flexDirection: "row",
     justifyContent: "space-between",
+    width: "100%",
+    marginVertical: 20,
+    marginHorizontal:5
+  },
+  header3:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems:'center',
     width: "100%",
     marginVertical: 20,
   },
@@ -137,7 +148,7 @@ const styles = StyleSheet.create({
     marginRight:19,
   },
   missionContainer: {
-    padding: 20,
+    width:"95%"
   },
   icon: {
     marginHorizontal: 5,
@@ -146,9 +157,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#D4A75B",
     padding: 15,
     borderRadius: 5,
-    width: "40%",
+    width: "45%",
     alignItems: "center",
-    margin: 20,
+    margin:5
   },
   button2: {
     padding: 15,
@@ -156,9 +167,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "white",
     borderStyle: "solid",
-    width: "40%",
+    width: "45%",
     alignItems: "center",
-    margin: 20,
+    margin:5
   },
   buttonText: {
     color: "white",

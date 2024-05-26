@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground ,TouchableOpacity} from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 const TeamSelect = () => {
+  const navigation=useNavigation()
   return (
     <ImageBackground
     source={require("../../assets/images/Vector.png")}
@@ -17,7 +18,7 @@ const TeamSelect = () => {
       />
       <Text style={styles.text}>TEAM 1</Text>
       <Text style={styles.text}>1/5</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Lobby")}>
         <Text style={styles.buttonText}>Join Team</Text>
       </TouchableOpacity>
       <View style={styles.dashedLine} />
@@ -28,7 +29,7 @@ const TeamSelect = () => {
       />
       <Text style={styles.text}>TEAM 2</Text>
       <Text style={styles.text}>1/5</Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Lobby")}>
         <Text style={styles.buttonText}>Join Team</Text>
       </TouchableOpacity>
     </ImageBackground>
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   roundedImage: {
     width: 100,
     height: 100,
-    borderRadius: "100%",
+    borderRadius: 23,
     alignSelf: 'center',
     marginBottom: 10,
   },

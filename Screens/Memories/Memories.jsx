@@ -1,9 +1,14 @@
 import React, { useState } from 'react'; 
 import { StyleSheet, Text, View, Image, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 const Memories = () => {
   const [inputText, setInputText] = useState(''); 
+  const navigation=useNavigation()
 
+
+  const handleOnClick=()=>{
+    navigation.navigate("Mission")
+  }
   return (
     <ImageBackground
       source={require("../../assets/images/Vector.png")}
@@ -24,7 +29,7 @@ const Memories = () => {
         placeholder="Example@email.com" 
         placeholderTextColor="gray"
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleOnClick}>
         <Text style={styles.buttonText}>Confirm & start</Text>
       </TouchableOpacity>
     </ImageBackground>

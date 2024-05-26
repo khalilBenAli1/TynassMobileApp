@@ -3,7 +3,7 @@
     "name": "TynassMobileApp",
     "slug": "treasurehaunt",
     "version": "1.0.0",
-    "scheme": ["treasurehunt"],
+    "scheme": "treasurehunt",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -28,14 +28,14 @@
     "ios": {
       "supportsTablet": true,
       "jsEngine": "hermes",
-      "bundleIdentifier": "com.yourdomain.treasurehaunt",
+      "bundleIdentifier": "com.tynass.treasurehaunt",
       "config": {
         "usesNonExemptEncryption": false  
       }
     },
     "android": {
       "jsEngine": "hermes",
-      "package": "com.yourdomain.treasurehaunt",
+      "package": "com.tynass.treasurehaunt",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

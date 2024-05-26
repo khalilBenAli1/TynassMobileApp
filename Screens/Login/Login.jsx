@@ -1,24 +1,43 @@
-import React from "react";
+import React,{useState} from  "react";
 import {
   StyleSheet,
   Text,
   View,
   ImageBackground,
   TouchableOpacity,
-  Image
+  Image,
+  TextInput
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useFacebookLogin } from "../../utils/facebookLogin";
-import { useGoogleLogin } from "../../utils/googleLogin";
-
+import { useNavigation } from "@react-navigation/native";
 const Login = () => {
-  const { promptFacebookLogin } = useFacebookLogin();
-  const { promptAsync } = useGoogleLogin();
 
+  const [emailLogin, setEmailLogin] = useState(false);
+  const navigation=useNavigation()
   const openPrivacyPolicy = () => {
     Linking.openURL('http://www.yourprivacypolicyurl.com');
   };
-
+  if (emailLogin) {
+    return (
+      <ImageBackground
+        source={require('../../assets/images/Vector.png')}
+        style={styles.container}
+        resizeMode="cover"
+      >
+        <Text style={styles.title}>Enter Your Details</Text>
+        <TextInput style={styles.input} placeholderTextColor="#999" placeholder="Email" keyboardType="email-address" />
+        <TextInput style={styles.input} placeholderTextColor="#999" placeholder="Username" />
+        <TouchableOpacity style={styles.connectButton} onPress={() => setEmailLogin(false)}>
+          <Icon name="email-outline" size={24} color="#FFF" />
+          <Text style={styles.connectButtonText}>Continue</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.connectButton} onPress={() => navigation.navigate("Instruction")}>
+          <Icon name="arrow-left" size={24} color="#FFF" /> 
+          <Text style={styles.connectButtonText}>Return</Text>
+        </TouchableOpacity>
+      </ImageBackground>
+    );
+  }
   return (
     <ImageBackground
       source={require('../../assets/images/Vector.png')}
@@ -31,7 +50,7 @@ const Login = () => {
           source={require('../../assets/images/ezgif3.png')}
           style={styles.mainImage}
         />
-      <TouchableOpacity style={styles.connectButton}>
+      <TouchableOpacity style={styles.connectButton} onPress={() => setEmailLogin(true)}>
         <Icon name="email" size={24} color="#FFF" />
         <Text style={styles.connectButtonText}>Continue with Email</Text>
       </TouchableOpacity>
@@ -39,7 +58,7 @@ const Login = () => {
         <Icon name="phone" size={24} color="#FFF" />
         <Text style={styles.connectButtonText}>Continue with Phone Number</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.connectButton}>
+      <TouchableOpacity style={styles.connectButton} onPress={() => navigation.navigate("Instruction")}>
         <Icon name="account" size={24} color="#FFF" />
         <Text style={styles.connectButtonText}>Continue as Guest</Text>
       </TouchableOpacity>
@@ -53,10 +72,10 @@ const Login = () => {
 
       {/* Social Media Buttons */}
       <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity style={styles.iconsButtons} onPress={() => promptFacebookLogin()}>
+        <TouchableOpacity style={styles.iconsButtons} onPress={() => console.log("facebook")}>
           <Icon name="facebook" size={30} color="black" style={styles.roundedButton} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconsButtons} onPress={() => promptAsync()}>
+        <TouchableOpacity style={styles.iconsButtons} onPress={() => console.log("google")}>
           <Icon name="google" size={30} color="black" style={styles.roundedButton} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconsButtons}>
@@ -93,6 +112,28 @@ const styles = StyleSheet.create({
     margin: 20,
     color: "#D4A75B",
   },
+  subtitle: {
+    color: "white",
+    fontSize: 25,
+    fontWeight: "700",
+  },
+  mainImage: {
+    width: 300,
+    height: 200,
+    marginBottom: 40,
+  },
+  input: {
+    width: "90%",
+    backgroundColor: "#FFF",
+    borderWidth: 2,
+    borderColor: '#FFF',
+    padding: 15,
+    borderRadius: 5,
+    color: '#000',
+    fontSize: 15,
+    fontWeight: "bold",
+    marginVertical: 10,
+  },
   connectButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -104,30 +145,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: "90%"
   },
-  mainImage: {
-    width: 300,
-    height: 200,
-    marginBottom: 40, 
-  },
   connectButtonText: {
     color: '#FFF',
     marginLeft: 10,
-    fontWeight:"bold",
-    fontSize:15
-  },
-  disclaimerText: {
-    color: '#FFF',
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  subtitle:{
-    color:"white",
-    fontSize:25,
-    fontWeight:700,
-  },
-  linkText: {
-    color: 'green',
-    textDecorationLine: 'underline',
+    fontWeight: "bold",
+    fontSize: 15
   },
   orContainer: {
     flexDirection: 'row',
@@ -157,6 +179,15 @@ const styles = StyleSheet.create({
   iconsButtons:{
     backgroundColor:"white",
     borderRadius:60
+  },
+  disclaimerText: {
+    color: '#FFF',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  linkText: {
+    color: 'green',
+    textDecorationLine: 'underline',
   }
 });
 
