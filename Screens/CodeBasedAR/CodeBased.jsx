@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, ImageBackground, Linking } from 'react-native';
 import SolutionModal from '../../Modals/SolutionModal';
 import TimerComponent from '../../components/Timer';
-import MissionTemplate from '../../components/MissionTamplate';
+import MissionTemplate from '../../components/MissionTamplate/index.jsx';
 import SubmitAnswerModal from '../../Modals/SubmitAnswerModal';
+
 const CodeBasedScreen = ({ navigation, photo, scrollText, externalLink,latitude, longitude }) => {
   const [missionStarted, setMissionStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -62,7 +63,7 @@ const CodeBasedScreen = ({ navigation, photo, scrollText, externalLink,latitude,
       />
       <SubmitAnswerModal
         isVisible={solutionmodalVisible}
-        onClose={closeModal}
+        onClose={closeSolutionModal}
         onSubmit={handleSubmitAnswer}
       />
       <View style={styles.textContainer}>
@@ -175,3 +176,10 @@ const styles = StyleSheet.create({
 });
 
 export default CodeBasedScreen;
+
+// {/* <CodeBasedAR
+// scrollText={
+//   "This mission will be timed So to make sure that you are on time you need to be on the mission location to start but here the riddle to think about it"
+// }
+// externalLink={"test"}
+// /> */}

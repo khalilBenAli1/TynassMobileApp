@@ -1,130 +1,99 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; 
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, ImageBackground } from 'react-native';
+import MissionTemplate from '../../components/MissionTamplate';
+import SolutionModal from '../../Modals/SolutionModal';
 
-const CameraBased = ({ navigation }) => {
+const CameraBasedScreen = ({ navigation, photo, scrollText, externalLink, latitude, longitude }) => {
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
+
+
+  const openCamera = () => {
+    console.log("Camera Opened");
+  };
+
+  const openDirections = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
+  };
+
   return (
-    <ImageBackground 
-      source={require('../../assets/images/Vector.png')}
-      style={styles.background}
-      resizeMode="cover"
+    <MissionTemplate
+      navigation={navigation}
+      directionOnClick={openDirections}
+      hint="More info about the camera usage"
+      hintOnClick={openModal}
     >
-      <View style={styles.topBar}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={24} color="#FFF" />
-          <Text style={styles.backButtonText}>Back</Text>
-        </TouchableOpacity>
-        <View style={styles.topRightIcons}>
-        <TouchableOpacity  onPress={() => {}}>
-          <Icon name="compass" size={35} color="#31D191" />
-          </TouchableOpacity>
-          <TouchableOpacity  onPress={() => {}}>
-          <Icon name="lightbulb" size={35} color="#D4A75B" style={styles.rightIcon} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <SolutionModal
+        isVisible={modalVisible}
+        onClose={closeModal}
+        cancel={closeModal}
+      />
 
-      <View style={styles.imageContainer}>
+      {photo && (
         <Image 
-          source={{ uri: 'https://via.placeholder.com/150' }} 
-          style={styles.centerImage}
+          source={{ uri: photo }}
+          style={styles.photo}
+          resizeMode="cover"
         />
-      </View>
+      )}
 
       <ImageBackground 
-        source={require('../../assets/images/Textbg.png')}
+        source={require('../../assets/images/missionBg.png')} // Adjust this path as needed
         style={styles.scrollableTextBackground}
       >
-        <ScrollView style={styles.scrollableView}>
-        <Text style={styles.scrollableTitle}>
-            Title
-          </Text>
-          <Text style={styles.scrollableText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-          </Text>
+        <ScrollView style={styles.scrollableText}>
+          <Text>{scrollText}</Text>
         </ScrollView>
       </ImageBackground>
 
-      <TouchableOpacity style={styles.actionButton} onPress={() => {/* Handle action */}}>
+      <TouchableOpacity style={styles.actionButton} onPress={openCamera}>
         <Text style={styles.buttonText}>Open Camera</Text>
       </TouchableOpacity>
-    </ImageBackground>
+    </MissionTemplate>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#161615",
-  },
-  topBar: {
-    marginTop:60,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    color:"white"
-  },
-  backButtonText: {
-    color: 'white',
-    marginLeft: 8,
-  },
-  topRightIcons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rightIcon: {
-    marginLeft: 16,
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centerImage: {
-    width: 250,
-    height: 250,
-    resizeMode: 'contain',
+  photo: {
+    width: '100%',
+    height: 200,
+    marginTop: 10,
+    marginVertical: 6,
   },
   scrollableTextBackground: {
-    marginTop:-40,
-    marginVertical: 20,
-    paddingHorizontal: 20,
-    height: 200,
-    borderRadius:50
-   
-    
-  },
-  scrollableView: {
-    maxHeight: 200,
+    marginTop: 10,
+    padding: 20,
+    height: 150,
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   scrollableText: {
-    color: 'black',
-    padding:10,
+    maxHeight: 150,
+    marginVertical: 6,
   },
   actionButton: {
     backgroundColor: '#D4A75B',
     padding: 10,
     borderRadius: 5,
+    marginTop: 20,
     alignItems: 'center',
-    marginBottom:10,
-    marginTop:20,
-    width:'80%',
-    alignSelf:"center",
+    width: '80%',
+    alignSelf: 'center',
+    marginVertical: 6,
   },
   buttonText: {
     color: '#FFF',
-  },
-  scrollableTitle:{
-    marginTop:10,
-    textAlign:"center",
-    fontSize:20,
-    fontWeight:'bold'
   }
 });
 
-export default CameraBased;
+export default CameraBasedScreen;
+
+{/* <CameraBasedScreen
+scrollText={
+  "This mission will be timed So to make sure that you are on time you need to be on the mission location to start but here the riddle to think about it"
+}
+externalLink={"test"}
+/> */}
