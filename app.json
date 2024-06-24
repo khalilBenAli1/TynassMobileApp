@@ -15,7 +15,8 @@
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
           "recordAudioAndroid": true
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "splash": {
       "image": "./assets/splash.png",
@@ -30,7 +31,7 @@
       "jsEngine": "hermes",
       "bundleIdentifier": "com.tynass.treasurehaunt",
       "config": {
-        "usesNonExemptEncryption": false  
+        "usesNonExemptEncryption": false
       }
     },
     "android": {

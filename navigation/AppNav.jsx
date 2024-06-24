@@ -13,6 +13,8 @@ import Memories from "../Screens/Memories/Memories.jsx";
 import TeamSelect from "../Screens/TeamSelect/TeamSelect.jsx";
 import Mission from "../Screens/Missions/Mission.jsx";
 import Lobby from "../Screens/Lobby/Lobby.jsx";
+import CodeBasedScreen from "../Screens/CodeBasedAR/CodeBased.jsx";
+import GoogleLoginScreen from "../Screens/GoogleLoginScreen/index.jsx";
 
 const Stack = createStackNavigator();
 
@@ -29,34 +31,35 @@ const AppNavigation = observer(() => {
           headerShown: false,
         }}
       >
-          <Stack.Screen
+        <Stack.Screen
           name="Memories"
           component={Memories}
           screenOptions={{
             headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Lobby"
           component={Lobby}
           screenOptions={{
             headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="TeamSelect"
           component={TeamSelect}
           screenOptions={{
             headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Mission"
           component={Mission}
           screenOptions={{
             headerShown: false,
           }}
         />
+        <Stack.Screen name="GoogleLogin" component={GoogleLoginScreen} />
         <Stack.Screen
           name="Language"
           component={Language}
@@ -71,7 +74,7 @@ const AppNavigation = observer(() => {
             headerShown: false,
           }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Instruction"
           component={Instruction}
           screenOptions={{
@@ -95,6 +98,13 @@ const AppNavigation = observer(() => {
         <Stack.Screen
           name="QRCodeScanner"
           component={QRCodeScanner}
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CodeBasedScreen"
+          component={CodeBasedScreen}
           screenOptions={{
             headerShown: false,
           }}

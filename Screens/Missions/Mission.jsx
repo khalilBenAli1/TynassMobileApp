@@ -10,43 +10,40 @@ import {
 } from "react-native";
 import MissionCard from "../../components/missionCard/MissionCard";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import CustomModal from "../../components/Modal/Modal";
-import WellDoneModal from "../../Modals/WellDoneModal";
-import NoModal from "../../Modals/NoModal";
-import HelpModal from "../../Modals/HelpModal";
 import SolutionModal from "../../Modals/SolutionModal";
-
+import { useNavigation } from "@react-navigation/native";
 const Mission = () => {
   const missions = [
     {
       id: "1",
-      name: "Find the mosque",
-      difficulty: "Hard",
-      image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
-      completed:true,
-    },
-    {
-      id: "2",
-      name: "Find the mosque",
+      name: "first Mission",
       difficulty: "easy",
-      image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+      image: "https://res.cloudinary.com/dqz50brri/image/upload/v1716763145/Overwatch-2-Tracer_ivjnyb.jpg",
       completed:true,
     },
+    // {
+    //   id: "2",
+    //   name: "Find the mosque",
+    //   difficulty: "easy",
+    //   image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+    //   completed:true,
+    // },
 
-    {
-        id: "3",
-        name: "Find the mosque",
-        difficulty: "medium",
-        image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
-      },
-      {
-        id: "3",
-        name: "Find the mosque",
-        difficulty: "fun",
-        image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
-      },
+    // {
+    //     id: "3",
+    //     name: "Find the mosque",
+    //     difficulty: "medium",
+    //     image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+    //   },
+    //   {
+    //     id: "3",
+    //     name: "Find the mosque",
+    //     difficulty: "fun",
+    //     image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
+    //   },
   ];
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation=useNavigation()
   return (
     <ImageBackground
       source={require("../../assets/images/Vector.png")}
@@ -72,7 +69,7 @@ const Mission = () => {
         </View>
         <View style={styles.header2}>
           <Text style={styles.teamName}>Team Winners</Text>
-          <Text style={styles.points}>85 P</Text>
+          <Text style={styles.points}>0 P</Text>
         </View>
         <View style={styles.header3}>
           <TouchableOpacity style={styles.button1}>
@@ -89,7 +86,7 @@ const Mission = () => {
               name={mission.name}
               difficulty={mission.difficulty}
               image={mission.image}
-              onPress={() => {}}
+              onPress={() => navigation.navigate("CodeBasedScreen")}
               completed={mission.completed}
             />
           ))}

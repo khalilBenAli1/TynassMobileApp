@@ -7,17 +7,19 @@ import {
   TouchableOpacity,
   ImageBackground,
   TextInput,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
-
+import { useStore } from "../../Store/useStore";
 
 const CodeRoom = () => {
   const [code, setCode] = useState(["", "", "", "", ""]);
-
+  const [error, setError] = useState(null);
   const inputRefs = useRef(code.map(() => React.createRef()));
   const navigation = useNavigation();
+  const store = useStore()
   const handleCodeInput = (text, index) => {
     const newCode = [...code];
     newCode[index] = text;
@@ -31,6 +33,45 @@ const CodeRoom = () => {
       inputRefs.current[index - 1].current.focus();
     }
   };
+
+  const handleSubmitCode = async () => {
+    const codeString = code.join("");
+    try {
+      const response = await axios.get(`http://srv417723.hstgr.cloud:3001/api/trip/trip/${codeString}`);
+      
+      if (response.data && response.data._id) {
+        const tripData = {
+          id: response.data._id,
+          tripType: response.data.tripType || '',
+          tripname: response.data.tripname || '',
+          teamNumber: response.data.teamNumber || null,
+          startingDate: response.data.startingDate ? new Date(response.data.startingDate) : null,
+          fixedTime: response.data.fixedTime || '',
+          gameOverMsg: response.data.gameOverMessage || '',
+          returnLocation: response.data.returnLocation || '',
+          emergencyContact: response.data.EmergencyContact || '',
+          instruction: response.data.instruction || [],
+          qrCode: {
+            data: response.data.qrCode.data || null,
+            createdAt: response.data.qrCode.createdAt ? new Date(response.data.qrCode.createdAt) : null
+          },
+          participants: response.data.participants || [],
+          missions: response.data.missions || [],
+          memoryMail: response.data.memoryMail || [],
+          teams: response.data.teams || [],
+          createdAt: response.data.createdAt ? new Date(response.data.createdAt) : null,
+          updatedAt: response.data.updatedAt ? new Date(response.data.updatedAt) : null,
+          accessCode: response.data.accessCode || '',
+        };
+        store.setCurrentTrip(tripData)
+      } else {
+        setError("Invalid code, please try again.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ImageBackground
       style={styles.container}
@@ -59,25 +100,25 @@ const CodeRoom = () => {
             ref={inputRefs.current[index]}
             style={styles.codeInput}
             maxLength={1}
-            keyboardType="numeric"
             onChangeText={(text) => handleCodeInput(text, index)}
             value={digit}
           />
         ))}
       </View>
 
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <TouchableOpacity
         style={styles.submitButton}
-        onPress={() => {
-          navigation.navigate("Connect");
-        }}
+        onPress={handleSubmitCode}
       >
         <Icon name="qrcode-scan" size={24} color="white" />
-        <Text style={styles.buttonText}>Join the Advanture</Text>
+        <Text style={styles.buttonText}>Join the Adventure</Text>
       </TouchableOpacity>
     </ImageBackground>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -85,6 +126,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
     backgroundColor: "#161615",
+  },
+  errorText:{
+    color:"red"
   },
   title: {
     textAlign: "center",

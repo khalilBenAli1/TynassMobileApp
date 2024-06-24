@@ -30,8 +30,7 @@ const CodeBasedScreen = ({ navigation, photo, scrollText, externalLink,latitude,
 
   const submitSolution = () => {
     setMissionStarted(false);
-    alert('Solution submitted!');
-    // Handle submission logic here
+   
   };
 
   const openLink = () => {
@@ -45,6 +44,7 @@ const CodeBasedScreen = ({ navigation, photo, scrollText, externalLink,latitude,
   const handleSubmitAnswer = (answer) => {
     console.log('Answer Submitted:', answer); // Handle answer here
     closeModal(); // Close modal after submission
+    navigation.navigate("Mission")
   };
   
 
@@ -91,9 +91,10 @@ const CodeBasedScreen = ({ navigation, photo, scrollText, externalLink,latitude,
       <ImageBackground 
         source={require('../../assets/images/missionBg.png')} // Replace with your actual background image path
         style={styles.scrollableTextBackground}
+        resizeMode='contain'
       >
         <ScrollView style={styles.scrollableText}>
-          <Text>{scrollText}</Text>
+          <Text style={{fontSize:18}}>Find the code{scrollText}</Text>
         </ScrollView>
       </ImageBackground>
 
@@ -137,13 +138,18 @@ const styles = StyleSheet.create({
   scrollableTextBackground: {
     marginTop: 10,
     padding: 20,
-    height: 150,
+    minHeight: 200,
     borderRadius: 20,
     overflow: 'hidden',
+    minWidth:'100%',
+    justifyContent:"center",
+    alignItems:"center"
+
   },
   scrollableText: {
     maxHeight: 150,
     marginVertical:6,
+    fontSize:23,
   },
   linkButton: {
     backgroundColor: 'transparent',

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { useNavigation } from '@react-navigation/native';
 
-export default function App() {
+const QRCodeScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -16,6 +18,7 @@ export default function App() {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Barcode with type ${type} and data ${data} has been scanned!`);
+    navigation.navigate('CodeRoom', { qrData: data });
   };
 
   if (hasPermission === null) {
@@ -43,7 +46,9 @@ export default function App() {
       )}
     </View>
   );
-}
+};
+
+export default QRCodeScanner;
 
 const styles = StyleSheet.create({
   container: {

@@ -1,4 +1,4 @@
-import React,{useState} from  "react";
+import React,{useState,useEffect} from  "react";
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,46 @@ import {
   Image,
   TextInput
 } from "react-native";
+
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
+import * as Linking from 'expo-linking';
+import { storeToken } from "../../utils/storage";
+import { checkauth } from "../../utils/googleLogin";
+import { useStore } from "../../Store/useStore";
 const Login = () => {
 
   const [emailLogin, setEmailLogin] = useState(false);
   const navigation=useNavigation()
-  const openPrivacyPolicy = () => {
-    Linking.openURL('http://www.yourprivacypolicyurl.com');
+  const store = useStore();
+  useEffect(() => {
+    const handleUrl = (event) => {
+      const url = event.url;
+      if (url) {
+        const userString = new URL(url).searchParams.get('user');
+        if (userString) {
+          const user = JSON.parse(decodeURIComponent(userString));
+          
+          store.saveUserToStorage(user);
+          store.setCurrentUser(user)
+          navigation.navigate("Instruction")
+
+        }
+      }
+    };
+
+    Linking.addEventListener('url', handleUrl);
+
+    return () => {
+      Linking.removeEventListener('url', handleUrl);
+    };
+  }, []);
+  const handleGoogleLogin = () => {
+    Linking.openURL('http://srv417723.hstgr.cloud:3001/api/user/auth/google');
+  };
+
+  const openPrivacyPolicy = async () => {
+    console.log(store.currentUser)
   };
   if (emailLogin) {
     return (
@@ -75,7 +107,7 @@ const Login = () => {
         <TouchableOpacity style={styles.iconsButtons} onPress={() => console.log("facebook")}>
           <Icon name="facebook" size={30} color="black" style={styles.roundedButton} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconsButtons} onPress={() => console.log("google")}>
+        <TouchableOpacity style={styles.iconsButtons} onPress={handleGoogleLogin}>
           <Icon name="google" size={30} color="black" style={styles.roundedButton} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconsButtons}>

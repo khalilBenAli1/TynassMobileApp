@@ -11,7 +11,7 @@ const ListItem = ({ number, avatar, name }) => (
   </View>
 );
 
-const Lobby = ({ listData }) => {
+const Lobby = ({ listData=[ { number: 1, avatar: 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg', name: 'Guest' }] }) => {
   const [text, setText] = useState("Initial Text");
   const navigation=useNavigation()
   const toggleText = () => {
@@ -92,7 +92,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '60%', 
     margin:10, 
-    
+    alignItems:"center",
+
     
   },
   itemText: {
