@@ -64,6 +64,11 @@ const CodeRoom = () => {
           accessCode: response.data.accessCode || '',
         };
         store.setCurrentTrip(tripData)
+        if (store.currentUser!==null){
+          navigation.navigate('Loading');
+        }else{
+          navigation.navigate('Connect');
+        }
       } else {
         setError("Invalid code, please try again.");
       }

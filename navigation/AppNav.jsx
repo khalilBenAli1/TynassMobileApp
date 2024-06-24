@@ -8,7 +8,7 @@ import Loading from "../Screens/Loading/Loading";
 import Login from "../Screens/Login/Login";
 import { useStore } from "../Store/useStore";
 import QRCodeScanner from "../Screens/QRCodeScanner";
-import Instruction from "../Screens/Instructions/Login";
+import Instruction from "../Screens/Instructions/index.jsx";
 import Memories from "../Screens/Memories/Memories.jsx";
 import TeamSelect from "../Screens/TeamSelect/TeamSelect.jsx";
 import Mission from "../Screens/Missions/Mission.jsx";

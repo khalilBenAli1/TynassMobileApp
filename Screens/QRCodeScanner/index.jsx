@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { useStore } from '../../Store/useStore';
 
 const QRCodeScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const navigation = useNavigation();
+  const store = useStore();
 
   useEffect(() => {
     (async () => {
@@ -15,10 +18,60 @@ const QRCodeScanner = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
-    alert(`Barcode with type ${type} and data ${data} has been scanned!`);
-    navigation.navigate('CodeRoom', { qrData: data });
+
+    const trimmedData = data.trim();
+
+
+    const regex = /^https?:\/\/srv417723\.hstgr\.cloud(:\d+)?\//;
+    const regexMatch = regex.test(trimmedData);
+
+
+    if (regexMatch) {
+      try {
+        const response = await axios.get(trimmedData);
+        if (response.data && response.data._id) {
+          const tripData = {
+            id: response.data._id,
+            tripType: response.data.tripType || '',
+            tripname: response.data.tripname || '',
+            teamNumber: response.data.teamNumber || null,
+            startingDate: response.data.startingDate ? new Date(response.data.startingDate) : null,
+            fixedTime: response.data.fixedTime || '',
+            gameOverMsg: response.data.gameOverMessage || '',
+            returnLocation: response.data.returnLocation || '',
+            emergencyContact: response.data.EmergencyContact || '',
+            instruction: response.data.instruction || [],
+            qrCode: {
+              data: response.data.qrCode.data || null,
+              createdAt: response.data.qrCode.createdAt ? new Date(response.data.qrCode.createdAt) : null
+            },
+            participants: response.data.participants || [],
+            missions: response.data.missions || [],
+            memoryMail: response.data.memoryMail || [],
+            teams: response.data.teams || [],
+            createdAt: response.data.createdAt ? new Date(response.data.createdAt) : null,
+            updatedAt: response.data.updatedAt ? new Date(response.data.updatedAt) : null,
+            accessCode: response.data.accessCode || '',
+          };
+          store.setCurrentTrip(tripData);
+          if (store.currentUser!==null){
+            navigation.navigate('Loading');
+          }else{
+            navigation.navigate('Connect');
+          }
+        
+        } else {
+          alert("Invalid code, please try again.");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Failed to fetch trip data. Please try again.");
+      }
+    } else {
+      alert(`Scanned data: ${trimmedData}`);
+    }
   };
 
   if (hasPermission === null) {
