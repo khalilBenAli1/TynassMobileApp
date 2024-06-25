@@ -12,6 +12,7 @@ const TeamSelect = () => {
   
   const handleTeamSelection = async (teamName) => {
     setSelectedTeam(teamName);
+    store.setSelectedTeam(teamName)
     try {
       const response = await axios.post("http://srv417723.hstgr.cloud:3001/api/trip/add-participant", {
         tripId,

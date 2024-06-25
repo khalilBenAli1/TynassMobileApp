@@ -31,6 +31,7 @@ const RootStore = types.model('RootStore', {
   currentUser: types.maybeNull(User),
   currentTrip: types.maybeNull(Trip),
   language: types.maybeNull(types.string),
+  selectedTeam: types.maybeNull(types.string),
 })
 .actions(self => ({
   setLanguage(lang) {
@@ -44,7 +45,9 @@ const RootStore = types.model('RootStore', {
   
     self.currentTrip = tripData;
   },
-  
+  setSelectedTeam(teamName) {
+    self.selectedTeam = teamName;
+  },
   clearCurrentUser() {
     self.currentUser = null;
   },

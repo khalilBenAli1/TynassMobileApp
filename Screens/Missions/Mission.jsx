@@ -1,64 +1,33 @@
-import React,{useState} from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageBackground,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, ImageBackground, ScrollView, TouchableOpacity, Image } from "react-native";
 import MissionCard from "../../components/missionCard/MissionCard";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SolutionModal from "../../Modals/SolutionModal";
 import { useNavigation } from "@react-navigation/native";
-const Mission = () => {
-  const missions = [
-    {
-      id: "1",
-      name: "first Mission",
-      difficulty: "easy",
-      image: "https://res.cloudinary.com/dqz50brri/image/upload/v1716763145/Overwatch-2-Tracer_ivjnyb.jpg",
-      completed:true,
-    },
-    // {
-    //   id: "2",
-    //   name: "Find the mosque",
-    //   difficulty: "easy",
-    //   image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
-    //   completed:true,
-    // },
+import { useStore } from "../../Store/useStore";
 
-    // {
-    //     id: "3",
-    //     name: "Find the mosque",
-    //     difficulty: "medium",
-    //     image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
-    //   },
-    //   {
-    //     id: "3",
-    //     name: "Find the mosque",
-    //     difficulty: "fun",
-    //     image: "https://images.pexels.com/photos/358904/pexels-photo-358904.jpeg",
-    //   },
-  ];
+const Mission = () => {
+  const store = useStore();
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const navigation=useNavigation()
+
+  const team = store.currentTrip.teams.find(team => team.teamName === store.currentTrip.selectedTeam);
+  const teamName = team ? team.teamName : 'Unknown Team';
+  const missions = store.currentTrip.missions;
+
   return (
     <ImageBackground
       source={require("../../assets/images/Vector.png")}
       style={styles.background}
       resizeMode="cover"
     >
-      <ScrollView
-      style={{ flex: 1,}}
-       bounces={false}>
+      <ScrollView style={{ flex: 1 }} bounces={false}>
         <View style={styles.header}>
           <Image
             source={require("../../assets/images/team2.png")}
             style={styles.roundedImage}
           />
-          <View style={{ flexDirection: "row",marginRight:19 }}>
+          <View style={{ flexDirection: "row", marginRight: 19 }}>
             <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
               <Icon name="information-outline" size={24} color="white" />
             </TouchableOpacity>
@@ -68,8 +37,8 @@ const Mission = () => {
           </View>
         </View>
         <View style={styles.header2}>
-          <Text style={styles.teamName}>Team Winners</Text>
-          <Text style={styles.points}>0 P</Text>
+          <Text style={styles.teamName}>{teamName}</Text>
+          <Text style={styles.points}>{team ? team.points : 0} P</Text>
         </View>
         <View style={styles.header3}>
           <TouchableOpacity style={styles.button1}>
@@ -80,18 +49,18 @@ const Mission = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.missionContainer}>
-          {missions.map((mission,index) => (
+          {missions.map((mission, index) => (
             <MissionCard
               key={index}
-              name={mission.name}
+              name={mission.missionName}
               difficulty={mission.difficulty}
-              image={mission.image}
+              image={mission.coverImage}
               onPress={() => navigation.navigate("CodeBasedScreen")}
               completed={mission.completed}
             />
           ))}
         </View>
-        <SolutionModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true}/>
+        <SolutionModal isVisible={modalVisible} onClose={() => setModalVisible(false)} cancel={true} />
       </ScrollView>
     </ImageBackground>
   );
@@ -105,7 +74,6 @@ const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: "#161615",
   },
-
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -117,12 +85,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     marginVertical: 20,
-    marginHorizontal:5
+    marginHorizontal: 5,
   },
-  header3:{
+  header3: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems:'center',
+    alignItems: 'center',
     width: "100%",
     marginVertical: 20,
   },
@@ -142,10 +110,10 @@ const styles = StyleSheet.create({
     color: "#31D191",
     fontWeight: "bold",
     fontSize: 24,
-    marginRight:19,
+    marginRight: 19,
   },
   missionContainer: {
-    width:"95%"
+    width: "95%"
   },
   icon: {
     marginHorizontal: 5,
@@ -156,7 +124,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "45%",
     alignItems: "center",
-    margin:5
+    margin: 5
   },
   button2: {
     padding: 15,
@@ -166,7 +134,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     width: "45%",
     alignItems: "center",
-    margin:5
+    margin: 5
   },
   buttonText: {
     color: "white",
