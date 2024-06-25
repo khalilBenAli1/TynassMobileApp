@@ -11,7 +11,7 @@ const Mission = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
-  const team = store.currentTrip.teams.find(team => team.teamName === store.currentTrip.selectedTeam);
+  const team = store.currentTrip.teams.find(team => team.teamName === store.selectedTeam);
   const teamName = team ? team.teamName : 'Unknown Team';
   const missions = store.currentTrip.missions;
 
