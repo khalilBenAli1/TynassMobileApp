@@ -1,8 +1,31 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground ,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useStore } from '../../Store/useStore';
+import axios from 'axios';
 const TeamSelect = () => {
   const navigation=useNavigation()
+  const [selectedTeam, setSelectedTeam] = useState('');
+  const store=useStore()
+  const tripId=store.currentTrip.id
+  const participantId=store.currentUser.id
+  
+  const handleTeamSelection = async (teamName) => {
+    setSelectedTeam(teamName);
+    try {
+      const response = await axios.post("http://srv417723.hstgr.cloud:3001/api/trip/add-participant", {
+        tripId,
+        participantId,
+        teamName
+      });
+      console.log(response.data);
+
+      navigation.navigate("Lobby", { teamName });
+    } catch (error) {
+      console.error("Error adding participant to team:", error);
+    }
+  };
+
   return (
     <ImageBackground
     source={require("../../assets/images/Vector.png")}
@@ -16,20 +39,20 @@ const TeamSelect = () => {
         source={require("../../assets/images/team1.png")}
         style={styles.roundedImage}
       />
-      <Text style={styles.text}>TEAM 1</Text>
-      <Text style={styles.text}>1/5</Text>
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Lobby")}>
+      <Text style={styles.text}>{store.currentTrip.teams[0].teamName}</Text>
+      <Text style={styles.text}>{store.currentTrip.teams[0].participants.length}/5</Text>
+      <TouchableOpacity style={styles.button} onPress={()=>handleTeamSelection(store.currentTrip.teams[0].teamName)}>
         <Text style={styles.buttonText}>Join Team</Text>
       </TouchableOpacity>
       <View style={styles.dashedLine} />
 
       <Image
-        source={require("../../assets/images/team2.png")} // Replace with your second image path
+        source={require("../../assets/images/team2.png")}
         style={styles.roundedImage}
       />
-      <Text style={styles.text}>TEAM 2</Text>
-      <Text style={styles.text}>1/5</Text>
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Lobby")}>
+      <Text style={styles.text}>{store.currentTrip.teams[1].teamName}</Text>
+      <Text style={styles.text}>{store.currentTrip.teams[1].participants.length}/5</Text>
+      <TouchableOpacity style={styles.button} onPress={()=>handleTeamSelection(store.currentTrip.teams[1].teamName)}>
         <Text style={styles.buttonText}>Join Team</Text>
       </TouchableOpacity>
     </ImageBackground>

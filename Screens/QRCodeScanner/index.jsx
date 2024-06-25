@@ -59,6 +59,7 @@ const QRCodeScanner = () => {
           };
           store.setCurrentTrip(tripData);
           if (store.currentUser!==null){
+            console.log(tripData.teams)
             navigation.navigate('Loading');
           }else{
             navigation.navigate('Connect');
