@@ -44,7 +44,6 @@ const CodeRoom = () => {
           id: response.data._id,
           tripType: response.data.tripType || '',
           tripname: response.data.tripname || '',
-          teamNumber: response.data.teamNumber || null,
           startingDate: response.data.startingDate ? new Date(response.data.startingDate) : null,
           fixedTime: response.data.fixedTime || '',
           gameOverMsg: response.data.gameOverMessage || '',
@@ -58,7 +57,10 @@ const CodeRoom = () => {
           participants: response.data.participants || [],
           missions: response.data.missions || [],
           memoryMail: response.data.memoryMail || [],
-          teams: response.data.teams || [],
+          teams: response.data.teams.map(team => ({
+            teamName: team.teamName,
+            participants: team.participants
+          })) || [],
           createdAt: response.data.createdAt ? new Date(response.data.createdAt) : null,
           updatedAt: response.data.updatedAt ? new Date(response.data.updatedAt) : null,
           accessCode: response.data.accessCode || '',

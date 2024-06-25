@@ -31,11 +31,16 @@ const QRCodeModel = types.model('QRCode', {
   createdAt: types.maybeNull(types.Date)
 });
 
+const Team = types.model('Team', {
+  teamName: types.optional(types.string, ''),
+  participants: types.optional(types.array(types.string), [])
+});
+
+
 const Trip = types.model('Trip', {
   id: types.optional(types.identifier, ''),
   tripType: types.optional(types.string, ''),
   tripname: types.optional(types.string, ''),
-  teamNumber: types.maybeNull(types.number),
   startingDate: types.maybeNull(types.Date),
   fixedTime: types.maybeNull(types.string),
   gameOverMsg: types.maybeNull(types.string),
@@ -46,7 +51,7 @@ const Trip = types.model('Trip', {
   participants: types.optional(types.array(types.string), []),
   missions: types.optional(types.array(Mission), []),
   memoryMail: types.optional(types.array(types.string), []),
-  teams: types.optional(types.array(types.string), []),
+  teams: types.optional(types.array(Team), []),
   createdAt: types.maybeNull(types.Date),
   updatedAt: types.maybeNull(types.Date),
   accessCode: types.optional(types.string, ''),
