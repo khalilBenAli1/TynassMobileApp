@@ -9,7 +9,7 @@ const TeamSelect = () => {
   const store=useStore()
   const tripId=store.currentTrip.id
   const participantId=store.currentUser.id
-  
+
   const handleTeamSelection = async (teamName) => {
     setSelectedTeam(teamName);
     store.setSelectedTeam(teamName)
@@ -19,7 +19,7 @@ const TeamSelect = () => {
         participantId,
         teamName
       });
-      console.log(response.data);
+      console.log(response.data)
 
       navigation.navigate("Lobby", { teamName });
     } catch (error) {

@@ -1,18 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image, ImageBackground, Linking } from 'react-native';
 import Video from 'react-native-video';
-import SolutionModal from '../../Modals/SolutionModal';
-import TimerComponent from '../../components/Timer';
+import SolutionModal from '../../Modals/SolutionModal.jsx';
+import TimerComponent from '../../components/Timer/index.jsx';
 import MissionTemplate from '../../components/MissionTamplate/index.jsx';
-import SubmitAnswerModal from '../../Modals/SubmitAnswerModal';
+import SubmitAnswerModal from '../../Modals/SubmitAnswerModal.jsx';
 import { Audio } from 'expo-av';
+import AnswerModal from '../../Modals/AnswerModal';
+import { useRoute } from '@react-navigation/native';
 
-const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, externalLink, latitude, longitude }) => {
+const AnswerBasedScreen = ({ navigation }) => {
+  const route = useRoute();
+  const { mission } = route.params;
+  
+  const {
+    coverImage,
+    missionImage,
+    description,
+    hint,
+    hintCost,
+    lat,
+    long,
+    experienceURL,
+    scorePoint,
+    difficulty,
+    numberOfTrials,
+    quizType,
+    answers,
+    englishAudio,
+    frenchAudio,
+    arabeAudio,
+    mediaType
+  } = mission;
+
   const [missionStarted, setMissionStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [solutionModalVisible, setSolutionModalVisible] = useState(false);
+  const [answerModalVisible, setAnswerModalVisible] = useState(false);
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [answerFeedback, setAnswerFeedback] = useState('');
 
   const openSolutionModal = () => {
     setSolutionModalVisible(true);
@@ -21,6 +49,7 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
   const closeSolutionModal = () => {
     setSolutionModalVisible(false);
   };
+
   const openModal = () => {
     setModalVisible(true);
   };
@@ -28,30 +57,39 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  const openAnswerModal = () => {
+    setAnswerModalVisible(true);
+  };
+
+  const closeAnswerModal = () => {
+    setAnswerModalVisible(false);
+  };
+
   const startMission = () => {
     setMissionStarted(true);
   };
 
   const submitSolution = () => {
-    setMissionStarted(false);
+    const correctAnswer = answers.find(answer => answer.isCorrect);
+    if (selectedAnswer === correctAnswer.answer) {
+      setAnswerFeedback('Solved');
+    } else {
+      setAnswerFeedback('Try Again');
+    }
+    openAnswerModal();
   };
 
   const openLink = () => {
-    Linking.openURL(externalLink);
+    Linking.openURL(experienceURL);
   };
 
   const openDirections = () => {
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${long}`;
     Linking.openURL(url).catch(err => console.error('An error occurred', err));
   };
 
-  const handleSubmitAnswer = (answer) => {
-    console.log('Answer Submitted:', answer); // Handle answer here
-    closeModal(); // Close modal after submission
-    navigation.navigate("Mission")
-  };
-
-  const handleAudioPress = async () => {
+  const handleAudioPress = async (audioUrl) => {
     if (sound) {
       if (isPlaying) {
         await sound.pauseAsync();
@@ -61,7 +99,7 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
       setIsPlaying(!isPlaying);
     } else {
       const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: audio },
+        { uri: audioUrl },
         { shouldPlay: true }
       );
       setSound(newSound);
@@ -69,11 +107,15 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
     }
   };
 
+  const handleAnswerSelect = (answer) => {
+    setSelectedAnswer(answer);
+  };
+
   return (
     <MissionTemplate
       navigation={navigation}
       directionOnClick={openDirections}
-      hint="More info about the code"
+      hint={hint}
       hintOnClick={openModal}
     >
       <SolutionModal
@@ -84,7 +126,12 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
       <SubmitAnswerModal
         isVisible={solutionModalVisible}
         onClose={closeSolutionModal}
-        onSubmit={handleSubmitAnswer}
+        onSubmit={submitSolution}
+      />
+      <AnswerModal
+        isVisible={answerModalVisible}
+        onClose={closeAnswerModal}
+        feedback={answerFeedback}
       />
       <View style={styles.textContainer}>
         {missionStarted ? (
@@ -99,48 +146,65 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
         )}
       </View>
 
-      {video ? (
+      {mediaType === 'video' ? (
         <Video
-          source={{ uri: video }}
+          source={{ uri: missionImage }}
           style={styles.media}
           controls
           resizeMode="cover"
         />
-      ) : audio ? (
+      ) : mediaType === 'audio' ? (
         <View style={styles.audioContainer}>
-          <TouchableOpacity onPress={handleAudioPress} style={styles.playButton}>
+          <TouchableOpacity onPress={() => handleAudioPress(englishAudio)} style={styles.playButton}>
             <Text style={styles.buttonText}>{isPlaying ? 'Pause' : 'Play'}</Text>
           </TouchableOpacity>
           <View style={styles.progressBarContainer}>
             <View style={[styles.progressBar, { width: '50%' }]} />
           </View>
         </View>
-      ) : photo && (
+      ) : coverImage && (
         <Image
-          source={{ uri: photo }}
+          source={{ uri: coverImage }}
           style={styles.photo}
           resizeMode="cover"
         />
       )}
 
       <ImageBackground
-        source={require('../../assets/images/missionBg.png')} // Replace with your actual background image path
+        source={require('../../assets/images/missionBg.png')}
         style={styles.scrollableTextBackground}
         resizeMode='contain'
       >
         <ScrollView style={styles.scrollableText}>
-          <Text style={{ fontSize: 18 }}>Find the code{scrollText}</Text>
+          <Text style={{ fontSize: 18 }}>Find the code {description}</Text>
         </ScrollView>
       </ImageBackground>
 
-      {externalLink && (
+      {experienceURL && (
         <TouchableOpacity onPress={openLink} style={styles.linkButton}>
           <Text style={styles.linkButtonText}>Click Me</Text>
         </TouchableOpacity>
       )}
 
-      <TouchableOpacity style={styles.actionButton} onPress={missionStarted ? openSolutionModal : startMission}>
-        <Text style={styles.buttonText}>{missionStarted ? 'Submit Solution' : 'Start Mission'}</Text>
+      {missionStarted && (
+        <View style={styles.choicesContainer}>
+          {answers.map((choice, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.choiceButton,
+                selectedAnswer === choice.answer && styles.selectedChoiceButton
+              ]}
+              onPress={() => handleAnswerSelect(choice.answer)}
+            >
+              <Text style={styles.choiceText}>{choice.answer}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+
+      <TouchableOpacity style={styles.actionButton} onPress={missionStarted ? submitSolution : startMission}>
+        <Text style={styles.buttonText}>{missionStarted ? 'Submit Answer' : 'Start Mission'}</Text>
       </TouchableOpacity>
     </MissionTemplate>
   );
@@ -226,6 +290,24 @@ const styles = StyleSheet.create({
   linkButtonText: {
     color: '#FFF',
   },
+  choicesContainer: {
+    marginVertical: 10,
+  },
+  choiceButton: {
+    backgroundColor: '#444',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    alignItems: 'center',
+    width: '80%',
+    alignSelf: 'center',
+  },
+  selectedChoiceButton: {
+    backgroundColor: '#D4A75B',
+  },
+  choiceText: {
+    color: '#FFF',
+  },
   actionButton: {
     backgroundColor: '#D4A75B',
     padding: 10,
@@ -241,4 +323,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CodeBasedScreen;
+export default AnswerBasedScreen;
+

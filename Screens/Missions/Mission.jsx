@@ -55,7 +55,7 @@ const Mission = () => {
               name={mission.missionName}
               difficulty={mission.difficulty}
               image={mission.coverImage}
-              onPress={() => navigation.navigate("CodeBasedScreen")}
+              onPress={() =>console.log(mission)}
               completed={mission.completed}
             />
           ))}

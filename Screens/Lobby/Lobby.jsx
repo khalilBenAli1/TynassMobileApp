@@ -16,7 +16,7 @@ const ListItem = ({ number, avatar, name }) => (
 
 const Lobby = () => {
   const [listData, setListData] = useState([]);
-  const [text, setText] = useState("Initial Text");
+  const [participantsChanged, setParticipantsChanged] = useState(false); // State to track participant changes
   const navigation = useNavigation();
   const route = useRoute();
   const { teamName } = route.params;
@@ -26,13 +26,16 @@ const Lobby = () => {
   useEffect(() => {
     const socket = io('http://srv417723.hstgr.cloud:3001');
 
-    socket.on('participantJoined', ({ tripId: eventTripId, teamName: eventTeamName, participantId }) => {
+    const handleParticipantJoined = ({ tripId: eventTripId, teamName: eventTeamName }) => {
       if (eventTripId === tripId && eventTeamName === teamName) {
-        fetchParticipants();
+        setParticipantsChanged(prevState => !prevState);
       }
-    });
+    };
+
+    socket.on('participantJoined', handleParticipantJoined);
 
     return () => {
+      socket.off('participantJoined', handleParticipantJoined);
       socket.disconnect();
     };
   }, [tripId, teamName]);
@@ -45,8 +48,8 @@ const Lobby = () => {
       });
       setListData(response.data.participants.map((participant, index) => ({
         number: index + 1,
-        avatar: participant.avatar || 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg', 
-        name: participant.username || 'Guest'
+        avatar: participant.userId.avatar || 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg', 
+        name: participant.userId.username || 'Guest'
       })));
     } catch (error) {
       console.error("Error fetching participants:", error);
@@ -55,11 +58,7 @@ const Lobby = () => {
 
   useEffect(() => {
     fetchParticipants();
-  }, [teamName, tripId]);
-
-  const toggleText = () => {
-    setText(prevText => prevText === "Initial Text" ? "Modified Text" : "Initial Text");
-  };
+  }, [teamName, tripId, participantsChanged]); // Add participantsChanged to the dependency array
 
   return (
     <View style={styles.container}>
@@ -76,9 +75,6 @@ const Lobby = () => {
         resizeMode="cover"
       >
         <View style={styles.iconTextContainer}>
-          <TouchableOpacity onPress={toggleText}>
-            <Icon name="pencil" size={24} color="white" />
-          </TouchableOpacity>
           <Text style={styles.subtitle}>{teamName}</Text>
         </View>
         <FlatList

@@ -4,26 +4,32 @@ const Instruction = types.model('Instruction', {
   title: types.optional(types.string, ''),
   rules: types.optional(types.array(types.string), [])
 });
-
 const Mission = types.model('Mission', {
   missionName: types.optional(types.string, ''),
   description: types.optional(types.string, ''),
-  codeSolution: types.optional(types.string, ''),
+  codeSolution: types.maybeNull(types.string),
   time: types.maybeNull(types.Date),
   scorePoint: types.optional(types.number, 0),
-  experienceURL: types.optional(types.string, ''),
+  experienceURL: types.maybeNull(types.string),
   difficulty: types.optional(types.string, ''),
   long: types.optional(types.string, ''),
   lat: types.optional(types.string, ''),
   hint: types.optional(types.string, ''),
-  hintCost: types.optional(types.number, 0),
+  hintCost: types.maybeNull(types.number),
   coverImage: types.optional(types.string, ''),
   missionImage: types.maybeNull(types.string),
-  mediaType: types.optional(types.string, ''),
-  arabeAudio: types.optional(types.string, ''),
-  englishAudio: types.optional(types.string, ''),
-  frenchAudio: types.optional(types.string, ''),
+  mediaType: types.maybeNull(types.string),
+  arabeAudio: types.maybeNull(types.string),
+  englishAudio: types.maybeNull(types.string),
+  frenchAudio: types.maybeNull(types.string),
   quizType: types.optional(types.string, ''),
+  accomplished: types.optional(types.boolean, false),
+  answers: types.optional(types.array(types.model({
+    answer: types.string,
+    isCorrect: types.boolean,
+  })), []),
+  numberOfTrials: types.maybeNull(types.number),
+  costPoint: types.maybeNull(types.number),
 });
 
 const QRCodeModel = types.model('QRCode', {
