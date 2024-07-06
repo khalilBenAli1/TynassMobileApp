@@ -22,7 +22,6 @@ const InformationBasedScreen = ({ route }) => {
     >
       <View style={styles.textContainer}>
         <Text style={styles.titleText}>{mission.missionName}</Text>
-        <Text style={styles.descriptionText}>{mission.description}</Text>
       </View>
 
       {mission.coverImage && (

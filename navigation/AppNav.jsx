@@ -15,7 +15,8 @@ import Mission from "../Screens/Missions/Mission.jsx";
 import Lobby from "../Screens/Lobby/Lobby.jsx";
 import CodeBasedScreen from "../Screens/CodeBasedAR/CodeBased.jsx";
 import GoogleLoginScreen from "../Screens/GoogleLoginScreen/index.jsx";
-
+import InformationBasedScreen from "../Screens/informationScreen/index.jsx";
+import AnswerBasedScreen from "../Screens/AnswerBasedScreen/index.jsx";
 const Stack = createStackNavigator();
 
 const AppNavigation = observer(() => {
@@ -109,7 +110,22 @@ const AppNavigation = observer(() => {
             headerShown: false,
           }}
         />
+         <Stack.Screen
+          name="AnswerBasedScreen"
+          component={AnswerBasedScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="InformationBasedScreen"
+          component={InformationBasedScreen}
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
+     
     </NavigationContainer>
   );
 });

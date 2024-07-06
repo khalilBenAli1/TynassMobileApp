@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import CustomModal from "../components/Modal/Modal";
 
-const SolutionModal = ({ isVisible, onClose, cancel }) => {
+const SolutionModal = ({ isVisible, onClose, cancel,text }) => {
   return (
     <CustomModal isVisible={isVisible} onClose={onClose} cancel>
       <Image
@@ -11,8 +11,7 @@ const SolutionModal = ({ isVisible, onClose, cancel }) => {
       />
 
       <Text style={styles.normalText}>
-        Its here but it not you can see it maybe it’s like the air and hiding on
-        the fog ,you will need item 6 in the bag to find the answer
+        {text}
       </Text>
 
       <TouchableOpacity

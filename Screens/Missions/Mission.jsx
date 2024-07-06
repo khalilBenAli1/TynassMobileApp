@@ -15,6 +15,16 @@ const Mission = () => {
   const teamName = team ? team.teamName : 'Unknown Team';
   const missions = store.currentTrip.missions;
 
+  const handleMissionPress = (mission) => {
+    if (mission.quizType === "Choose the right answers") {
+      navigation.navigate("AnswerBasedScreen", { mission });
+    } else if (mission.quizType === "information only screen") {
+      navigation.navigate("InformationBasedScreen", { mission });
+    } else {
+      navigation.navigate("CodeBasedScreen", { mission });
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../assets/images/Vector.png")}
@@ -55,7 +65,7 @@ const Mission = () => {
               name={mission.missionName}
               difficulty={mission.difficulty}
               image={mission.coverImage}
-              onPress={() =>console.log(mission)}
+              onPress={() => handleMissionPress(mission)}
               completed={mission.completed}
             />
           ))}

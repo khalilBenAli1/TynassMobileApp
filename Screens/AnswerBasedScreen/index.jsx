@@ -4,9 +4,9 @@ import Video from 'react-native-video';
 import SolutionModal from '../../Modals/SolutionModal.jsx';
 import TimerComponent from '../../components/Timer/index.jsx';
 import MissionTemplate from '../../components/MissionTamplate/index.jsx';
-import SubmitAnswerModal from '../../Modals/SubmitAnswerModal.jsx';
+
 import { Audio } from 'expo-av';
-import AnswerModal from '../../Modals/AnswerModal';
+
 import { useRoute } from '@react-navigation/native';
 
 const AnswerBasedScreen = ({ navigation }) => {
@@ -112,6 +112,7 @@ const AnswerBasedScreen = ({ navigation }) => {
   };
 
   return (
+    <ScrollView>
     <MissionTemplate
       navigation={navigation}
       directionOnClick={openDirections}
@@ -122,16 +123,7 @@ const AnswerBasedScreen = ({ navigation }) => {
         isVisible={modalVisible}
         onClose={closeModal}
         cancel={closeModal}
-      />
-      <SubmitAnswerModal
-        isVisible={solutionModalVisible}
-        onClose={closeSolutionModal}
-        onSubmit={submitSolution}
-      />
-      <AnswerModal
-        isVisible={answerModalVisible}
-        onClose={closeAnswerModal}
-        feedback={answerFeedback}
+        text={hint}
       />
       <View style={styles.textContainer}>
         {missionStarted ? (
@@ -176,7 +168,7 @@ const AnswerBasedScreen = ({ navigation }) => {
         resizeMode='contain'
       >
         <ScrollView style={styles.scrollableText}>
-          <Text style={{ fontSize: 18 }}>Find the code {description}</Text>
+          <Text style={{ fontSize: 18 }}>{description}</Text>
         </ScrollView>
       </ImageBackground>
 
@@ -207,6 +199,7 @@ const AnswerBasedScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>{missionStarted ? 'Submit Answer' : 'Start Mission'}</Text>
       </TouchableOpacity>
     </MissionTemplate>
+    </ScrollView>
   );
 };
 
@@ -292,6 +285,7 @@ const styles = StyleSheet.create({
   },
   choicesContainer: {
     marginVertical: 10,
+    width:'100%'
   },
   choiceButton: {
     backgroundColor: '#444',
@@ -299,7 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
-    width: '80%',
+    width: '100%',
     alignSelf: 'center',
   },
   selectedChoiceButton: {

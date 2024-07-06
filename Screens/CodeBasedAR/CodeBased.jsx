@@ -7,7 +7,10 @@ import MissionTemplate from '../../components/MissionTamplate/index.jsx';
 import SubmitAnswerModal from '../../Modals/SubmitAnswerModal';
 import { Audio } from 'expo-av';
 
-const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, externalLink, latitude, longitude }) => {
+const CodeBasedScreen = ({ navigation, route }) => {
+  const { mission } = route.params;
+  const { photo, video, audio, scrollText, externalLink, latitude, longitude, hint, codeSolution } = mission;
+
   const [missionStarted, setMissionStarted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [solutionModalVisible, setSolutionModalVisible] = useState(false);
@@ -32,7 +35,15 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
     setMissionStarted(true);
   };
 
-  const submitSolution = () => {
+  const submitSolution = (inputSolution) => {
+    if (inputSolution === codeSolution) {
+      // Handle correct solution
+      console.log('Correct solution!');
+      navigation.navigate('Mission');
+    } else {
+      // Handle incorrect solution
+      console.log('Incorrect solution!');
+    }
     setMissionStarted(false);
   };
 
@@ -48,7 +59,7 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
   const handleSubmitAnswer = (answer) => {
     console.log('Answer Submitted:', answer); // Handle answer here
     closeModal(); // Close modal after submission
-    navigation.navigate("Mission")
+    submitSolution(answer);
   };
 
   const handleAudioPress = async () => {
@@ -80,6 +91,7 @@ const CodeBasedScreen = ({ navigation, photo, video, audio, scrollText, external
         isVisible={modalVisible}
         onClose={closeModal}
         cancel={closeModal}
+        text={hint}
       />
       <SubmitAnswerModal
         isVisible={solutionModalVisible}
